@@ -7,25 +7,35 @@ export default async function() {
     inset: 10,
     height: 320,
     grid: true,
+    className: "plot classtest",
     x: {
       ticks: 10,
-      tickFormat: "~s"
+      tickFormat: "~s",
+      className: "axis-x"
     },
     y: {
-      ticks: 10
+      ticks: 10,
+      className: "axis-y"
     },
     facet: {
       data,
-      x: "sex"
+      x: "sex",
+      className: "facet"
+    },
+    fx: {
+      className: "axis-fx"
     },
     marks: [
-      Plot.frame(),
+      Plot.frame({
+        className: "frame"
+      }),
       Plot.dot(data, Plot.binR({
         x: "body_mass_g",
         y: "culmen_length_mm",
         stroke: "species",
         fill: "species",
-        fillOpacity: 0.1
+        fillOpacity: 0.1,
+        className: "bin"
       }))
     ]
   });

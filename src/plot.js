@@ -4,7 +4,7 @@ import {facets} from "./facet.js";
 import {Scales, autoScaleRange} from "./scales.js";
 
 export function plot(options = {}) {
-  const {facet, style} = options;
+  const {facet, style, className = "plot"} = options;
 
   // When faceting, wrap all marks in a faceting mark.
   if (facet !== undefined) {
@@ -73,7 +73,7 @@ export function plot(options = {}) {
   const {width, height} = dimensions;
 
   const svg = create("svg")
-      .attr("class", "plot")
+      .attr("class", className)
       .attr("fill", "currentColor")
       .attr("text-anchor", "middle")
       .attr("width", width)
