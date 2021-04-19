@@ -11,6 +11,7 @@ export {default as athletesHeightWeightSex} from "./athletes-height-weight-sex.j
 export {default as athletesNationality} from "./athletes-nationality.js";
 export {default as athletesSexWeight} from "./athletes-sex-weight.js";
 export {default as athletesSportSex} from "./athletes-sport-sex.js";
+export {default as athletesSportFacet} from "./athletes-sport-facet.js";
 export {default as athletesSportWeight} from "./athletes-sport-weight.js";
 export {default as athletesWeight} from "./athletes-weight.js";
 export {default as athletesWeightCumulative} from "./athletes-weight-cumulative.js";
