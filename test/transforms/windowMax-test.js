@@ -34,15 +34,15 @@ tape("window max treats null as NaN", test => {
   test.deepEqual(m3.x.transform(), [ , 1, NaN, NaN, NaN, 1, 1, 1, NaN, NaN, NaN, NaN, NaN, ]);
 });
 
-tape("window max respects shift", test => {
+tape("window max respects anchor", test => {
   const data = [0, 1, 2, 3, 4, 5];
-  const mc = Plot.windowX({reduce: "max", k: 3, x: d => d});
+  const mc = Plot.windowX({reduce: "max", k: 3, anchor: "center", x: d => d});
   mc.transform(data, [range(data.length)]);
   test.deepEqual(mc.x.transform(), [ , 2, 3, 4, 5, ]);
-  const ml = Plot.windowX({reduce: "max", k: 3, shift: "leading", x: d => d});
+  const ml = Plot.windowX({reduce: "max", k: 3, anchor: "start", x: d => d});
   ml.transform(data, [range(data.length)]);
   test.deepEqual(ml.x.transform(), [ 2, 3, 4, 5, , ]);
-  const mt = Plot.windowX({reduce: "max", k: 3, shift: "trailing", x: d => d});
+  const mt = Plot.windowX({reduce: "max", k: 3, anchor: "end", x: d => d});
   mt.transform(data, [range(data.length)]);
   test.deepEqual(mt.x.transform(), [ , , 2, 3, 4, 5 ]);
 });
