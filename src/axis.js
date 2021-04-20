@@ -1,6 +1,6 @@
 import {axisTop, axisBottom, axisRight, axisLeft, create, format, utcFormat} from "d3";
 import {formatIsoDate} from "./format.js";
-import {boolean, number, string, keyword, maybeKeyword, constant, isTemporal} from "./mark.js";
+import {boolean, take, number, string, keyword, maybeKeyword, constant, isTemporal} from "./mark.js";
 
 export class AxisX {
   constructor({
@@ -178,20 +178,22 @@ function gridY(x2) {
 
 function gridFacetX(index, fy, ty) {
   const dy = fy.bandwidth();
+  const domain = index ? take(fy.domain(), index) : fy.domain();
   return g => g.selectAll(".tick")
     .append("path")
       .attr("stroke", "currentColor")
       .attr("stroke-opacity", 0.1)
-      .attr("d", (index || fy.domain()).map(v => `M0,${fy(v) + ty}v${dy}`).join(""));
+      .attr("d", domain.map(v => `M0,${fy(v) + ty}v${dy}`).join(""));
 }
 
 function gridFacetY(index, fx, tx) {
   const dx = fx.bandwidth();
+  const domain = index ? take(fx.domain(), index) : fx.domain();
   return g => g.selectAll(".tick")
     .append("path")
       .attr("stroke", "currentColor")
       .attr("stroke-opacity", 0.1)
-      .attr("d", (index || fx.domain()).map(v => `M${fx(v) + tx},0h${dx}`).join(""));
+      .attr("d", domain.map(v => `M${fx(v) + tx},0h${dx}`).join(""));
 }
 
 function createAxis(axis, scale, {ticks, tickSize, tickPadding, tickFormat}) {

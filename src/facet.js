@@ -99,7 +99,7 @@ class Facet extends Mark {
               .join("g")
               .attr("transform", ky => `translate(0,${fy(ky)})`)
               .append((ky, i) => (i === j ? axis1 : axis2).render(
-                fx && fx.domain().filter(kx => marksIndexByFacet.has([kx, ky])),
+                fx && where(fx.domain(), kx => marksIndexByFacet.has([kx, ky])),
                 scales,
                 null,
                 fyDimensions
@@ -116,7 +116,7 @@ class Facet extends Mark {
               .join("g")
               .attr("transform", kx => `translate(${fx(kx)},0)`)
               .append((kx, i) => (i === j ? axis1 : axis2).render(
-                fy && fy.domain().filter(ky => marksIndexByFacet.has([kx, ky])),
+                fy && where(fy.domain(), ky => marksIndexByFacet.has([kx, ky])),
                 scales,
                 null,
                 fxDimensions
@@ -219,4 +219,15 @@ class FacetMap2 extends FacetMap {
     else super.set(key1, new InternMap([[key2, value]]));
     return this;
   }
+}
+
+// indices of tested values in an iterator
+function where(values, test = d => !!d) {
+  const index = [];
+  let i = 0;
+  for (const d of values) {
+    if (test(d)) index.push(i);
+    ++i;
+  }
+  return index;
 }
