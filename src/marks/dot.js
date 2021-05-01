@@ -15,6 +15,7 @@ export class Dot extends Mark {
       fillOpacity,
       stroke,
       strokeOpacity,
+      sort,
       ...options
     } = {}
   ) {
@@ -38,7 +39,7 @@ export class Dot extends Mark {
       options
     );
     this.r = cr;
-    this.defaultSort = options.sort === undefined && options.reverse === undefined;
+    this.defaultSort = sort === undefined;
     Style(this, {
       fill: cfill,
       fillOpacity: cfillOpacity,
