@@ -38,6 +38,7 @@ export class Dot extends Mark {
       options
     );
     this.r = cr;
+    this.defaultSort = options.sort === undefined && options.reverse === undefined;
     Style(this, {
       fill: cfill,
       fillOpacity: cfillOpacity,
@@ -54,7 +55,12 @@ export class Dot extends Mark {
     {width, height, marginTop, marginRight, marginBottom, marginLeft}
   ) {
     let index = filter(I, X, Y, F, FO, S, SO);
-    if (R) index = index.filter(i => positive(R[i]));
+    if (R) {
+      index = index.filter(i => positive(R[i]));
+      if (this.defaultSort) {
+        index.sort((i, j) => R[j] - R[i]);
+      }
+    }
     return create("svg:g")
         .call(applyIndirectStyles, this)
         .call(applyTransform, x, y, 0.5, 0.5)
