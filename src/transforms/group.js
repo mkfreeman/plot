@@ -1,6 +1,6 @@
 import {group as grouper, sort, sum, deviation, min, max, mean, median, variance} from "d3";
 import {firstof} from "../defined.js";
-import {valueof, maybeColor, maybeInput, maybeTransform, maybeTuple, maybeLazyChannel, lazyChannel, first, identity, take, labelof, range} from "../mark.js";
+import {valueof, maybeColor, maybeInput, maybeTransform, maybeTuple, column, lazyChannel, first, identity, take, labelof, range} from "../mark.js";
 
 // Group on {z, fill, stroke}.
 export function groupZ(outputs, options) {
@@ -40,18 +40,18 @@ function groupn(
   outputs = maybeOutputs(outputs, inputs);
 
   // Produce x and y output channels as appropriate.
-  const [GX, setGX] = maybeLazyChannel(x);
-  const [GY, setGY] = maybeLazyChannel(y);
+  const [GX, setGX] = column(x);
+  const [GY, setGY] = column(y);
 
   // Greedily materialize the z, fill, and stroke channels (if channels and not
   // constants) so that we can reference them for subdividing groups without
   // computing them more than once.
   const {z, fill, stroke, ...options} = inputs;
-  const [GZ, setGZ] = maybeLazyChannel(z);
+  const [GZ, setGZ] = column(z);
   const [vfill] = maybeColor(fill);
   const [vstroke] = maybeColor(stroke);
-  const [GF = fill, setGF] = maybeLazyChannel(vfill);
-  const [GS = stroke, setGS] = maybeLazyChannel(vstroke);
+  const [GF = fill, setGF] = column(vfill);
+  const [GS = stroke, setGS] = column(vstroke);
 
   return {
     ..."z" in inputs && {z: GZ || z},

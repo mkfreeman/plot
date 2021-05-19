@@ -1,5 +1,5 @@
 import {bin as binner, extent, thresholdFreedmanDiaconis, thresholdScott, thresholdSturges, utcTickInterval} from "d3";
-import {valueof, range, identity, maybeLazyChannel, maybeTransform, maybeTuple, maybeColor, maybeValue, mid, labelof, isTemporal} from "../mark.js";
+import {valueof, range, identity, column, maybeTransform, maybeTuple, maybeColor, maybeValue, mid, labelof, isTemporal} from "../mark.js";
 import {offset} from "../style.js";
 import {maybeGroup, maybeOutputs, maybeReduce, maybeSubgroup, reduceIdentity} from "./group.js";
 
@@ -46,24 +46,24 @@ function binn(
   if (gy != null && hasOutput(outputs, "y", "y1", "y2")) gy = null;
 
   // Produce x1, x2, y1, and y2 output channels as appropriate (when binning).
-  const [BX1, setBX1] = maybeLazyChannel(bx);
-  const [BX2, setBX2] = maybeLazyChannel(bx);
-  const [BY1, setBY1] = maybeLazyChannel(by);
-  const [BY2, setBY2] = maybeLazyChannel(by);
+  const [BX1, setBX1] = column(bx);
+  const [BX2, setBX2] = column(bx);
+  const [BY1, setBY1] = column(by);
+  const [BY2, setBY2] = column(by);
 
   // Produce x or y output channels as appropriate (when grouping).
   const [k, gk] = gx != null ? [gx, "x"] : gy != null ? [gy, "y"] : [];
-  const [GK, setGK] = maybeLazyChannel(k);
+  const [GK, setGK] = column(k);
 
   // Greedily materialize the z, fill, and stroke channels (if channels and not
   // constants) so that we can reference them for subdividing groups without
   // computing them more than once.
   const {x, y, z, fill, stroke, ...options} = inputs;
-  const [GZ, setGZ] = maybeLazyChannel(z);
+  const [GZ, setGZ] = column(z);
   const [vfill] = maybeColor(fill);
   const [vstroke] = maybeColor(stroke);
-  const [GF = fill, setGF] = maybeLazyChannel(vfill);
-  const [GS = stroke, setGS] = maybeLazyChannel(vstroke);
+  const [GF = fill, setGF] = column(vfill);
+  const [GS = stroke, setGS] = column(vstroke);
 
   return {
     ..."z" in inputs && {z: GZ || z},

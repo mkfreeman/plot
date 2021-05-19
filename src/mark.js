@@ -220,7 +220,7 @@ export function labelof(value, defaultValue) {
 }
 
 // Like lazyChannel, but allows the source to be null.
-export function maybeLazyChannel(source) {
+export function column(source) {
   return source == null ? [source] : lazyChannel(source);
 }
 
@@ -239,6 +239,16 @@ export function maybeTransform({
     if (r1) t1 = compose(t1, reverse);
   }
   return {...options, transform: compose(t1, t2)};
+}
+
+// Transform composition helper
+export function transform(...transforms) {
+  let options;
+  for (const t of transforms) {
+    const {transform, ...rest} = typeof t === "function" ? {transform: t} : t;
+    options = options ? {...maybeTransform(options, transform), ...rest} : {transform, ...rest};
+  }
+  return options;
 }
 
 // Assuming that both x1 and x2 and lazy channels (per above), this derives a
