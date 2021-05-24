@@ -19,7 +19,7 @@ import {
   scaleThreshold,
   scaleIdentity
 } from "d3";
-import {ordinalScheme, ordinalSchemes, quantitativeScheme, quantitativeSchemes} from "./schemes.js";
+import {ordinalScheme, quantitativeScheme, quantitativeSchemes} from "./schemes.js";
 import {registry, radius, opacity, color} from "./index.js";
 import {defined, positive, negative} from "../defined.js";
 import {constant} from "../mark.js";
