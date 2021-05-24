@@ -1,5 +1,5 @@
 import {registry, position, radius, opacity} from "./scales/index.js";
-import {ScaleDiverging, ScaleLinear, ScalePow, ScaleLog, ScaleSymlog, ScaleIdentity} from "./scales/quantitative.js";
+import {ScaleDiverging, ScaleLinear, ScalePow, ScaleQuantile, ScaleLog, ScaleSymlog, ScaleThreshold, ScaleIdentity} from "./scales/quantitative.js";
 import {ScaleTime, ScaleUtc} from "./scales/temporal.js";
 import {ScaleOrdinal, ScalePoint, ScaleBand} from "./scales/ordinal.js";
 import {isOrdinal, isTemporal} from "./mark.js";
@@ -61,6 +61,8 @@ function Scale(key, channels = [], options = {}) {
     case "diverging": return ScaleDiverging(key, channels, options);
     case "categorical": case "ordinal": return ScaleOrdinal(key, channels, options);
     case "cyclical": case "sequential": case "linear": return ScaleLinear(key, channels, options);
+    case "threshold": return ScaleThreshold(key, channels, options);
+    case "quantile": return ScaleQuantile(key, channels, options);
     case "sqrt": return ScalePow(key, channels, {...options, exponent: 0.5});
     case "pow": return ScalePow(key, channels, options);
     case "log": return ScaleLog(key, channels, options);

@@ -246,6 +246,8 @@ The normal scale types — *linear*, *sqrt*, *pow*, *log*, *symlog*, and *ordina
 * *cyclical* - equivalent to *linear*, but defaults to the *rainbow* scheme
 * *diverging* - like *linear*, but with a pivot; defaults to the *rdbu* scheme
 * *categorical* - equivalent to *ordinal*, but defaults to the *tableau10* scheme
+* *threshold* - given a *domain* of *n* = 1 or more values and a *range* of *n* + 1 colors, returns the *i*th color of the *range* for values that are smaller than the *i*th element of the domain. Returns the *n*th color for values above the highest threshold
+* *quantile* - given a number of *quantiles*, bins the channels into ordered *quantiles* having roughly the same number of values, then returns a threshold scale based on the bins’ limits 
 
 Color scales support two additional options:
 
