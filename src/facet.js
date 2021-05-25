@@ -9,7 +9,7 @@ export function facets(data, {x, y, ...options}, marks) {
 }
 
 class Facet extends Mark {
-  constructor(data, {x, y, rows, ...options} = {}, marks = []) {
+  constructor(data, {x, y, columns, ...options} = {}, marks = []) {
     super(
       data,
       [
@@ -20,7 +20,7 @@ class Facet extends Mark {
     );
     this.marks = marks.flat(Infinity);
     this.xy = x === y;
-    this.rows = rows;
+    this.columns = columns;
     // The following fields are set by initialize:
     this.marksChannels = undefined; // array of mark channels
     this.marksIndex = undefined; // array of mark indexes (for non-faceted marks)
@@ -32,11 +32,11 @@ class Facet extends Mark {
     const facetsKeys = Array.from(facets, first);
     const facetsIndex = Array.from(facets, second);
     if (this.xy) {
-      const rows = this.rows || Math.ceil(Math.sqrt(facetsKeys.length));
+      const columns = this.columns || Math.ceil(Math.sqrt(facetsKeys.length));
       const x = channels.find(([d]) => d === "fx")[1].value;
       const y = channels.find(([d]) => d === "fy")[1].value;
       for (let j = 0; j < facetsKeys.length; j++) {
-        const [a, b] = [j % rows, Math.floor(j / rows)];
+        const [a, b] = [j % columns, Math.floor(j / columns)];
         facetsKeys[j] = [a, b];
         for (const i of facetsIndex[j]) {
           x[i] = a;

@@ -388,6 +388,8 @@ Plot.plot({
 })
 ```
 
+When *x* === *y*, facets are laid out on a grid, and the *columns* option allows the set the number of columns, which defaults to the square root of the number of facets.
+
 ## Marks
 
 [Marks](https://observablehq.com/@data-workflows/plot-marks) visualize data as geometric shapes such as bars, dots, and lines. An single mark can generate multiple shapes: for example, passing a [Plot.barY](#plotbarydata-options) to [Plot.plot](#plotplotoptions) will produce a bar for each element in the associated data. Multiple marks can be layered into [plots](#plotplotoptions).

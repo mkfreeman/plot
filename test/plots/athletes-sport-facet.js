@@ -21,7 +21,7 @@ export default async function() {
       marginLeft: 100,
       x: "sport",
       y: "sport",
-      rows: 4
+      columns: 4
     },
     fx: { axis: null },
     fy: { axis: null },
